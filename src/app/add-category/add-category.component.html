@@ -1,0 +1,80 @@
+<app-logout></app-logout>
+<div class="container border" style="margin: 5% 7% 0% 7%">
+    <form [formGroup]="categoryForm" >
+      <h4 style="text-align: center;">Upload Audio File</h4>
+      <table>
+          <!-- <tr>
+              <th class="center">Name</th>
+              <th>Input</th>
+          </tr> -->
+          <tr>
+              <td>Name</td>
+              <td>
+                  <input id="name" type="text" formControlName="name">
+              </td>
+          </tr>
+          <tr>
+            <td>Language</td>
+            <td>
+              <select formControlName="language" (change)="setLanguage($event)" class="form-control">
+                <option disabled>Select Language</option>
+                <option *ngFor="let lang of languages" [value]="lang">
+                    {{lang}}
+                </option>
+            </select>
+            </td>
+        </tr>
+          <tr>
+              <td>Category Name</td>
+                <td>
+                    <select [attr.disabled]="selectedLanguage=='' ? 'disabled' : null" formControlName="category" (change)="setCategory($event)" class="form-control">
+                        <option disabled>Select Type</option>
+                    <option *ngFor="let cat of categoryNames" [value]="cat">
+                        {{cat}}
+                    </option>
+                </select>
+                </td>
+              </tr>
+              <tr>
+                <td>Category Value</td>
+                <td>
+                    <div class="form-group">
+                        <select [attr.disabled]="selectedLanguage=='' || selectedCategoryName=='' ? 'disabled' : null" formControlName="categoryValue" (change)="setCategoryValue($event)" class="form-control">
+                            <option disabled>Select Value</option>
+                            <option *ngFor="let catval of categoryValues" [value]="catval">
+                                {{catval}}
+                            </option>
+                        </select>
+                    </div>
+                </td>
+          </tr>
+          <!-- <tr>
+              <td>{{selectedLanguage==''}}</td>
+              <td>{{selectedCategoryName==''}}</td>
+          </tr> -->
+          <tr>
+           <td>Thumbnail File</td>
+              <td>
+                <label class="file">
+                  <input type="file" (change)="selectThumbnailFile($event)" accept="Image/*" formControlName="thumbnailfile" />
+              </label>
+              </td>
+          </tr>
+      </table>
+      <button class="btn btn-primary" style="width: 40%; margin-left: 30%; margin-right: 30%;">
+        Submit
+      </button>
+      </form>
+<div class="border">
+    <div *ngIf="currentFile" class="progress">
+        <div
+        class="progress-bar progress-bar-info progress-bar-striped"
+        role="progressbar"
+        attr.aria-valuenow="{{ progress }}"
+        aria-valuemin="0"
+        aria-valuemax="100"
+        [ngStyle]="{ width: progress + '%' }"
+        >
+        {{ progress }}%
+        </div>
+    </div>

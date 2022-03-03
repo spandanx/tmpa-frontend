@@ -1,0 +1,18 @@
+/* .logoutButton{
+    right:10px;
+    top:5px;
+ } */
+/* .logoutButton{
+background:red; 
+border:none;     
+}
+.logoutButton:hover{
+    background-color: green;
+} */
+.flex {
+    display: flex;
+  }
+  
+.justify-between {
+justify-content: space-between;
+}

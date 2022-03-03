@@ -1,0 +1,16 @@
+<app-logout></app-logout>
+<div class="container" style="margin-top: 5%;">
+    <!-- <div fxFlex="65">
+        <div *ngFor="let item of widgetsArray.slice(0, widgetsArray.length / 2)">
+            <p>{{ item.widgetName }}</p>
+            <p>{{ item.sectionId }}</p>
+            .slice(widgetsArray.length / 2, widgetsArray.length)
+        </div>
+    </div> -->
+    <div class="flex-container">
+        <div *ngFor="let item of widgetsArray" class="widget" style="background-color: rosybrown;" (click)="redirect(item)">
+            <p>{{ item.widgetName }}</p>
+            <p>{{ item.sectionId }}</p>
+        </div>
+    </div>
+</div>

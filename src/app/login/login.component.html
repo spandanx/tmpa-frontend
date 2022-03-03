@@ -1,0 +1,40 @@
+<form [formGroup]="loginForm" (ngSubmit)="login()" style="margin: 7% 20% 0% 20%;">
+    <h2 style="text-align: center;">Login</h2>
+    <table style="margin: auto; width: 50%;">
+        <tr>
+            <td>
+                <label for="username">Username</label>
+            </td>
+            <td>
+                <input type="text" formControlName="username" class="form-control" [ngClass]="{ 'is-invalid': f.username.touched && f.username.status=='INVALID' }" />
+                <div *ngIf="f.username.touched" class="text-danger">
+                    <div *ngIf="f.username.status=='INVALID'">Username is required</div>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <label for="password">Password</label>
+            </td>
+            <td>
+                <input type="password" formControlName="password" class="form-control" [ngClass]="{ 'is-invalid': f.password.touched && f.password.status=='INVALID' }" />
+                <div *ngIf="f.password.touched" class="text-danger">
+                    <div *ngIf="f.password.status=='INVALID'">Password is required</div>
+                </div>
+            </td>
+        </tr>
+    </table>
+    <div class="form-group center" style="width: 50%; margin: auto;">
+        <button [disabled]="loginForm.status=='INVALID'" class="btn">
+            <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
+            Login
+        </button>
+        <div *ngIf="errorLogin" style="color: red; text-align: center;">
+            <span>{{errorMessage}}</span>
+        </div>
+        <div style="text-align: center;">
+            <p>Don't have an account?
+            <a href="/#/register">Register Here</a></p>
+        </div>
+    </div>
+</form>

@@ -1,0 +1,55 @@
+<form [formGroup]="registerForm" (ngSubmit)="register()" style="margin: 7% 20% 0% 20%;">
+    <h2 style="text-align: center;">Register</h2>
+    <table style="margin: auto; width: 55%;">
+        <tr>
+            <td>
+                <label for="username">Username</label>
+            </td>
+            <td>
+                <input type="text" formControlName="username" class="form-control"/>
+                <div *ngIf="r.username.touched" class="text-danger">
+                    <div *ngIf="r.username.status=='INVALID'">Username is invalid</div>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <label for="password">Password</label>
+            </td>
+            <td>
+                <input type="password" formControlName="password" class="form-control"/>
+                <div class="text-danger" *ngIf="r.password.touched">
+                    <div *ngIf="r.password.status=='INVALID'">At least 8 characters in length
+                        , one Lowercase letters
+                        , one Uppercase letters
+                        , one Number
+                        , Special characters</div>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <label for="password">Confirm password</label>
+            </td>
+            <td>
+                <input type="password" formControlName="passwordVerify" class="form-control"/>
+                <div *ngIf="r.passwordVerify.touched" class="text-danger">
+                    <div *ngIf="r.passwordVerify.status=='INVALID'">Password is not matching</div>
+                </div>
+            </td>
+        </tr>
+    </table>
+    <div class="form-group center" style="width: 55%; margin: auto;">
+        <button [disabled]="registerForm.status=='INVALID'" class="btn">
+            <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
+            Register
+        </button>
+        <div *ngIf="errorLogin" style="color: red; text-align: center;">
+            <span>{{errorMessage}}</span>
+        </div>
+        <div style="text-align: center;">
+            <p>Already have an account?
+            <a routerLink="">Login here</a></p>
+        </div>
+    </div>
+</form>

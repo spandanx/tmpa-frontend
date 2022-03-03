@@ -1,0 +1,84 @@
+<app-logout></app-logout>
+<div class="container border" style="margin: 5% 7% 0% 7%">
+    <form [formGroup]="musicform" (ngSubmit)="upload()">
+      <h4 style="text-align: center;">Upload Audio File</h4>
+      <table>
+          <tr>
+              <th class="center">Name</th>
+              <th>Input</th>
+          </tr>
+          <tr>
+              <td>Name</td>
+              <td>
+                  <input id="name" type="text" formControlName="name">
+              </td>
+          </tr>
+          <tr>
+            <td>Artists</td>
+              <td>
+                  <input id="name" type="text" formControlName="artists">
+              </td>
+          </tr>
+          <tr>
+            <td>Langauge</td>
+              <td>
+                  <input id="name" type="text" formControlName="language">
+              </td>
+          </tr>
+          <tr>
+            <td>Category</td>
+              <td>
+                  <input id="name" type="text" formControlName="category">
+              </td>
+          </tr>
+
+          <tr>
+            <td>Select Audio File</td>
+              <td>
+                <label class="file">
+                  <input type="file" (change)="selectAudioFile($event)" accept="Audio/*" formControlName="audiofile" id ="selectedFile" />
+              </label>
+              </td>
+          </tr>
+          <tr>
+            <td>Thumbnail File</td>
+              <td>
+                <label class="file">
+                  <input type="file" (change)="selectThumbnailFile($event)" accept="Image/*" formControlName="thumbnailfile" />
+              </label>
+              </td>
+          </tr>
+      </table>
+      <button class="btn btn-primary" style="width: 40%; margin-left: 30%; margin-right: 30%;">
+        Submit
+      </button>
+      </form>
+<div class="border">
+    <div *ngIf="currentFile" class="progress">
+        <div
+        class="progress-bar progress-bar-info progress-bar-striped"
+        role="progressbar"
+        attr.aria-valuenow="{{ progress }}"
+        aria-valuemin="0"
+        aria-valuemax="100"
+        [ngStyle]="{ width: progress + '%' }"
+        >
+        {{ progress }}%
+        </div>
+    </div>
+    
+<!--     
+    <div class="alert alert-light" role="alert">{{ message }}</div>
+</div>
+  <div class="card">
+    <div class="card-header">List of Files</div>
+    <ul
+      class="list-group list-group-flush"
+      *ngFor="let file of fileInfos | async"
+    >
+      <li class="list-group-item">
+        <a href="{{ file.url }}">{{ file.name }}</a>
+      </li>
+    </ul>
+  </div>
+</div> -->

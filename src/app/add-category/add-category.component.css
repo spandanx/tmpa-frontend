@@ -1,0 +1,16 @@
+table {
+    border-collapse: separate;
+    border-spacing: 50px 0px;
+    margin: auto;
+  }
+  
+  td {
+    padding: 10px 0;
+  }
+input{
+  width: 100%;
+}
+
+.file{
+  width: 100%;
+}

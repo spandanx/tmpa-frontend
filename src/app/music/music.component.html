@@ -1,0 +1,162 @@
+<app-logout></app-logout>
+<div class="container" style="margin-top: 5%;">
+  <!-- <div class="float-container" *ngIf="activeMusic">
+    <div (click)="playAudio()">play Audio</div>
+    <img class="float-child-left" src="{{thumbnailAPI}}{{activeMusic.imageFilePath}}" preload="none" alt="Image" height="70" width="70"/>
+    <audio class="float-child-right-top" id="track" controls>
+      <source src="http://www.sousound.com/music/healing/healing_01.mp3" type='audio/mp3'>//{{audioAPI}}{{activeMusic.audioFilePath}}
+    </audio>
+    <div class="float-child-right-bottom">
+      {{ activeMusic.name }} | {{ activeMusic.artists }}
+    </div>
+    <div (click)="pause()">pause</div>
+    <div (click)="changeTime()">Jump</div>
+  </div> -->
+  <div class="c-containter">
+    <div class="music-container" *ngIf="activeMusic">
+        <section class="album-cover">
+            
+            <!-- <button class="arrow left" id="prev">
+                <img src="https://snowleo208.github.io/100-Days-of-Code/7.%20Music%20Player/img/arrow_left.svg" alt="Next Music">
+            </button> -->
+            <img src="https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8bXVzaWMlMjBjb3ZlcnxlbnwwfHwwfHw%3D&w=1000&q=80" class="cover" alt="Music Thumbnail" height="100" width="100">
+            
+
+            <!-- <button class="arrow right" id="next">
+                <img src="https://snowleo208.github.io/100-Days-of-Code/7.%20Music%20Player/img/arrow_right.svg" alt="Next Music">
+            </button> -->
+        </section>
+        <section class="music-player">
+            <h1 class="music-player__title"></h1>
+            <h2 class="music-player__author"></h2>
+            <div class="music-time">
+                <p class="music-time__current"></p>
+                <p class="music-time__last"></p>
+            </div>
+            <div class="music-bar" id="progress" (click)="changeAudioTime($event)">
+                <div class="music-bar-progress" id="length" [style.width.%]="musicBarHeight"></div>
+            </div>
+
+            <!-- <div class="music-order">
+                <div class="music-order__loop is-loop" id="loop">
+                    <img src="assets\icons\repeat.png" alt="Loop music">
+                </div>
+                <div class="music-order__shuffle" id="shuffle">
+                    <img src="assets\icons\shuffle.png" alt="Shuffle music">
+                </div>
+            </div> -->
+            
+            <div class="music-control">
+                <div class="volume-control">
+                    <img *ngIf="!mute" class="volume-icon" src="assets\icons\volume.png" alt="volume icon" (click)="muteAudio()">
+                    <img *ngIf="mute" class="volume-icon" src="assets\icons\volume-mute.png" alt="mute icon" (click)="unmuteAudio()">
+                    <div class="volume-bar" id="volume" (click)="changeAudioVolume($event)">
+                        <div class="volume-bar-progress" id="length" [style.width.%]="volumebarHeight"></div>
+                    </div>
+                </div>
+                <div class="time-control">
+                    <div>
+                      {{ currentMinuteString }}:{{currentSecondString}} / {{ totalMinuteString }}:{{ totalSecondString }}
+                    </div>
+                </div>
+                <div class="all-control">
+                    <div class="music-control__shuffle" id="shuffle">
+                        <img src="assets\icons\shuffle.png" alt="Shuffle music" (click)="randomize()">
+                    </div>
+                    <div class="music-control__prev" id="previousTrack">
+                        <img src="assets\icons\prev_track.png" alt="Backward" (click)="previousTrack()">
+                    </div>
+                    <div class="music-control__backward" id="backward">
+                        <img src="assets\icons\backward.png" alt="Backward" (click)="backward()">
+                    </div>
+                    <div class="music-control__play" id="play" *ngIf="playButton">
+                      <img src="assets\icons\play.png" alt="Play" class="play" (click)="playAudio()">
+                    </div>
+                    <div class="music-control__play" id="pause" *ngIf="!playButton">
+                      <img src="assets\icons\pause.png" alt="pause" class="play" (click)="pauseAudio()">
+                    </div>
+
+                    <div class="music-control__forward" id="forward">
+                        <img src="assets\icons\forward.png" alt="Forward" (click)="forward()">
+                    </div>
+                    <div class="music-control__next" id="nextTrack">
+                        <img src="assets\icons\next_track.png" alt="Forward" (click)="nextTrack()">
+                    </div>
+                    <div class="music-control__repeat" id="loop">
+                        <img *ngIf="repeat==0" src="assets\icons\no_repeat.png" alt="Loop music" (click)="repeatShift()">
+                        <img *ngIf="repeat==1" src="assets\icons\repeat.png" alt="Loop music" (click)="repeatShift()">
+                        <img *ngIf="repeat==2" src="assets\icons\repeat_1.png" alt="Loop music" (click)="repeatShift()">
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+    </div>
+</div>
+<div class="playlist">
+    <div class="track" *ngFor="let music of allMusic; let i = index" [style.background-color]="(i==activeIndex) ? '#E3FCD0' : null">
+        <div class="track-image">
+          <img class="over-image" src="https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8bXVzaWMlMjBjb3ZlcnxlbnwwfHwwfHw%3D&w=1000&q=80" alt="Smiley face" (click)=playCustom(i)/>
+        </div>
+        <div class="track-details">
+            <div class="track-name">
+                <b><p> {{music.name}} </p></b>
+            </div>
+            <div class="track-artists">
+                {{music.artists}} - {{music.category}}
+            </div>
+        </div>
+    </div>
+</div>
+  <!-- <div id="audio-player-container" *ngIf="activeMusic">
+    <audio src="{{audioAPI}}{{activeMusic.audioFilePath}}"  loop></audio>
+    <p>audio player</p>
+    <button id="play-icon"></button>
+    <span id="current-time" class="time">0:00</span>
+    <input type="range" id="seek-slider" max="100" value="0">
+    <span id="duration" class="time">0:00</span>
+    <output id="volume-output">100</output>
+    <input type="range" id="volume-slider" max="100" value="100">
+    <button id="mute-icon"></button>
+  </div> -->
+    <!-- <table class="table">
+      <thead>
+          <tr>
+            <th>Thumbnail</th>
+            <th>Name</th>
+            <th>Artists</th>
+            <th>Category</th> -->
+            <!-- <th>Music</th> -->
+          <!-- </tr>  
+      </thead>  
+      <tbody>  
+        <tr *ngFor="let music of allMusic; let i = index" [style.background-color]="(i==activeIndex) ? '#E3FCD0' : null">
+          <td> -->
+            <!-- <img src="{{thumbnailAPI}}{{music.imageFilePath}}" alt="Smiley face" height="42" width="42" (click)=playCustom(i)/> -->
+            <!-- <img src="https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8bXVzaWMlMjBjb3ZlcnxlbnwwfHwwfHw%3D&w=1000&q=80" alt="Smiley face" height="42" width="42" (click)=playCustom(i)/>
+          </td>
+          <td>{{ music.name }}</td>
+          <td>{{ music.artists }}</td>
+          <td>{{ music.category }}</td> -->
+          <!-- <td>
+            <audio class="library" controls>
+              <source src="{{audioAPI}}{{music.audioFilePath}}" type='audio/mp3'>
+            </audio>
+          </td> -->
+        <!-- </tr>
+      </tbody>  
+    </table>  -->
+  
+    <!-- <audio class="library" controls preload="auto" data-config="some-js-object-here">
+      <source src="http://localhost:8081/api/audios/RingtonefluteXX.mp3" type='audio/mp3'>
+
+    </audio>  -->
+    <!-- <div>
+    <ngx-audio-player [playlist]="playlist" [displayTitle]="msaapDisplayTitle" [autoPlay]="false" 
+  muted="muted" [displayPlaylist]="msaapDisplayPlayList" 
+      [displayVolumeControls]="msaapDisplayVolumeControls" [displayRepeatControls]="msaapDisplayRepeatControls"
+      [disablePositionSlider]="msaapDisablePositionSlider" [displayArtist]="msaapDisplayArtist" 
+      [displayDuration]="msaapDisplayDuration" [expanded]="true"></ngx-audio-player> 
+    </div> -->
+      <!--(trackEnded)="onEnded($event)" [pageSizeOptions]="pageSizeOptions" -->
+  </div>
